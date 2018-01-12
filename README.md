@@ -4,7 +4,7 @@
 
 ## Description
 
-The module repository is a set of library's used for different microchips and or semiconductors. It uses the [STK500](https://github.com/sunriax/STK500) library set which abstracts the hardware from the software. The module repository can easily be ported to other hardware abstraction libraries. It is only necessary that the functions at the ground are the same like they are in the [STK500](https://github.com/sunriax/STK500) repository libraries.
+The module repository is a set of library's used for different microchips and/or semiconductors. It uses different repositories ([STK500](https://github.com/sunriax/STK500), ...) to abstract the hardware from the software. In the module repository it is not necessary to set registers or other stuff. Everything can be done with the functions. The module repository can easily be ported to other hardware abstraction libraries. It is only necessary that the functions at the ground are the same like they are in the [STK500](https://github.com/sunriax/STK500) or other repositories.
 
 1. Supported Controller
    * STK500 (Atmel ATmega8/16/32)Atmel
@@ -15,23 +15,34 @@ The module repository is a set of library's used for different microchips and or
    * Arietta G25 ([ACME](http://www.acmesystems.it/))
    * Raspberry PI ([rPI](https://www.raspberrypi.org/))
 1. Additional Hardware
-   * MAX7219 ([HD44780](https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf))
-   * TWI EEPROM
-   * 
+   * 8x8 Matrix Display ([MAX7219](https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf))
 1. Development Software
    * Atmel Studio (uC C/C++)
    * Eclipse IDE (C/C++)
 
 ## Abstraction
 
-![Graphical Description](https://raw.githubusercontent.com/sunriax/manual/master/docs/image/STK500_abstraction.png "Graphical Description")
+![Graphical Description](https://raw.githubusercontent.com/sunriax/manual/master/docs/image/module_abstraction.png "Graphical Description")
 
 ## Getting Started
 
-Every project has a demo application as side car (e.g. MAX7219 has MAX7219demo). This demo can be used as quick start guide. We also try to keep our [WIKI](https://wiki.sunriax.at) up-to-date. Also there is a short description at the libraries folder:
+Every project has got some demo application as side car (e.g. MAX7219 has MAX7219atmel MAX7219linux). This demo's can be used as quick start guide. We also try to keep our [WIKI](https://wiki.sunriax.at) up-to-date. Also there is a short description at the libraries folder:
 
 * [MAX7219](./MAX7219/MAX7219.md)
 * [AT24C02](./AT24C02/AT24C02.md)
+
+## Supported Functions
+
+In the following table supported functions for abstraction are listed. At the moment there are only functions available for the STK500/Megacard. Others will follow soon...
+
+| Function | STK500/Megacard | Arietta G25 | Raspberry PI |
+|:---------|:---------------:|:-----------:|:------------:|
+| UART     | yes             | no          | no           |
+| SPI      | yes             | no          | no           |
+| TWI      | yes             | no          | no           |
+| PWM      | yes             | no          | no           |
+| ADC      | yes             | no          | no           |
+| LCD      | yes             | no          | no           |
 
 ## Important Notice
 

@@ -18,8 +18,8 @@
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!! DEFINE ONLY FOR COMPILING THE LIBRARY !!!
-#ifndef STK500
-	#define STK500
+#ifndef ATMEL
+	#define ATMEL
 #endif
 // !!! #define LINUX                         !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -50,7 +50,7 @@
 	#define MAX7219_DISABLE 0x00
 #endif
 
-#ifdef STK500
+#ifdef ATMEL
 	#include "../../STK500/spi/spi.h"
 #endif
 
