@@ -1,0 +1,30 @@
+﻿# Travis CI for compiling Atmel Studio 7 Solution
+# -----------------------------------------------
+language: c
+sudo: false
+
+# Dependencies
+addons:
+  apt:
+    packages:
+      - binutils-avr
+      - avr-libc
+      - gcc-avr
+
+install:
+  - avr-gcc --version
+  - make --version
+
+# Execute Commands bevor Build
+before_script:
+  - chmod 0777 scripts/CI/makefile2unix.sh
+  - scripts/CI/makefile2unix.sh MAX7219/
+  #- scripts/CI/makefile2unix.sh MAX7219_DEMO/
+
+
+# Run Build Script
+script:
+  - cd MAX7219/Debug
+  - mkdir src
+  - make
+  - cd ../../
