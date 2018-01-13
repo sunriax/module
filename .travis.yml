@@ -23,8 +23,8 @@ before_script:
   - chmod 0777 scripts/CI/makefile2unix.sh
   - scripts/CI/makefile2unix.sh module/MAX7219/
   - git clone https://github.com/sunriax/STK500.git
-  - cp STK500/spi/spi.h module/MAX7219/spi.h
-  - cp STK500/spi/spi.c module/MAX7219/spi.c
+  # - cp STK500/spi/spi.h module/MAX7219/spi.h
+  # - cp STK500/spi/spi.c module/MAX7219/spi.c
 
 
 # Run Build Script
