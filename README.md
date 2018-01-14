@@ -16,6 +16,7 @@ The module repository is a set of library's used for different microchips and/or
    * Raspberry PI ([rPI](https://www.raspberrypi.org/))
 1. Additional Hardware
    * 8x8 Matrix Display ([MAX7219](https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf))
+   * I2C EEPROM ([AT24C02](http://ww1.microchip.com/downloads/en/DeviceDoc/21202J.pdf))
 1. Development Software
    * Atmel Studio (uC C/C++)
    * Eclipse IDE (C/C++)

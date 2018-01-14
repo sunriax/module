@@ -9,48 +9,11 @@
  * Ver.: 1.0 Release
  * Type: Library
  * Text: Routines for initializing and
- *       display things on the MAX7219
+ *       write things on the MAX7219
  * -------------------------------------
  */
 
 #include "max7219.h"
-
-// Characters for 8x8 matrix display
-const unsigned char character[][8] = {	{	0b01100110, 0b10011001, 0b10000001, 0b10000001, 0b10000001, 0b01000010, 0b00100100, 0b00011000	},
-										{	0b00111100, 0b01111110, 0b11111111, 0b11111111, 0b11111111, 0b00000000, 0b00011000, 0b00011000	},
-										{	0b11111110, 0b11111111, 0b11000000, 0b11111111, 0b11111111, 0b00000011, 0b11111111, 0b01111111	},
-										{	0b10000001, 0b11000011, 0b11000011, 0b11000011, 0b11000011, 0b11000011, 0b11111111, 0b01111110	},
-										{	0b11000001, 0b11100011, 0b11110011, 0b11011011, 0b11011011, 0b11001111, 0b11000111, 0b10000011	},
-										{	0b00000000, 0b00000000, 0b00000000, 0b11111110, 0b11111111, 0b11000000, 0b11000000, 0b11000000	},
-										{	0b00011000, 0b00011000, 0b00000000, 0b00111100, 0b00011000, 0b00011000, 0b00011000, 0b00111100	},
-										{	0b00000000, 0b00000000, 0b00000000, 0b01111110, 0b11111111, 0b11000011, 0b11111111, 0b01111111	},
-										{	0b11000011, 0b01100110, 0b00111100, 0b00011000, 0b00011000, 0b00111100, 0b01100110, 0b11000011	}	};
-
-// Frame buffer for
-// |   Display 1/1   |   Display 1/2   | Dis...
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// |    Display 2/1  |   Display 2/2   | Dis...
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// | X X X X X X X X | X X X X X X X X | . . .
-// |      Dis...     |     Dis...      | Dis...
-// | . . . . . . . . | . . . . . . . . | . . . 
-// | . . . . . . . . | . . . . . . . . | . . .
-// | . . . . . . . . | . . . . . . . . | . . .
-
-static unsigned char max7219_buffer[H_DISPLAY_SIZE][V_DISPLAY_SIZE * DISPLAY_MATRIX];
 
 unsigned char max7219_init(unsigned char intensity)
 {
@@ -107,18 +70,13 @@ void max7219_intensity(unsigned char intensity, unsigned char item)
 		
 }
 
-void max7219_frame(unsigned char **frame)
-{
-	
-}
-
-void max7219_display(unsigned char *matrix, unsigned char item)
+void max7219_display(unsigned char *matrix, unsigned char length, unsigned char item)
 {
 
 	if(item < 1 || item > (H_DISPLAY_SIZE * V_DISPLAY_SIZE))
 		return;
 
-	for(unsigned int i=0; i < 8; i++)
+	for(unsigned int i=0; i < length; i++)
 	{
 		spi_select(0xFF);
 		
@@ -131,6 +89,48 @@ void max7219_display(unsigned char *matrix, unsigned char item)
 		spi_select(0x00);
 		
 		matrix++;
+	}
+}
+
+// Matrix frame example
+// |    Matrix 0     |    Matrix 1     | Mat...
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// |    Matrix 2     |    Matrix 3     | Mat...
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// | X X X X X X X X | X X X X X X X X | . . .
+// |      Mat...     |     Mat...      | Mat...
+// | . . . . . . . . | . . . . . . . . | . . .
+// | . . . . . . . . | . . . . . . . . | . . .
+// | . . . . . . . . | . . . . . . . . | . . .
+
+void max7219_cascade(unsigned char **matrix, unsigned char matrix_width, unsigned char matrix_height)
+{
+	if((matrix_width < 1) || (matrix_height > (H_DISPLAY_SIZE)) || (matrix_height < 1) || (matrix_width > (V_DISPLAY_SIZE)))
+		return;
+
+	for(unsigned int i=(matrix_height - 1); i >= 0; i--)
+	{
+		spi_select(0xFF);
+		
+		for(unsigned int j=(matrix_width - 1); j >= 0; j--)
+		{
+			max7219_set((MAX7219_START_ROW + i), matrix[i][j]);
+		}
+		
+		spi_select(0x00);
 	}
 }
 
