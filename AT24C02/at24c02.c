@@ -20,7 +20,7 @@ void at24c02_init(void)
 	twi_init(0xFF);
 }
 
-unsigned char at24c02_write_byte(unsigned char address, unsigned char data, unsigned char verify)
+unsigned char at24c02_write_byte(unsigned char address, const unsigned char data, unsigned char verify)
 {
 	unsigned char checksum = TWI_NACK;
 	
@@ -34,6 +34,8 @@ unsigned char at24c02_write_byte(unsigned char address, unsigned char data, unsi
 		return 0xFF;
 	
 	twi_stop();
+	
+	_delay_us(1500);
 	
 	if(verify != 0x00)
 	{
@@ -73,6 +75,8 @@ unsigned char at24c02_write_page(unsigned char address, unsigned char *page, uns
 	}
 	
 	twi_stop();
+	
+	_delay_us(1500);
 	
 	if(verify != 0x00)
 	{
@@ -126,8 +130,6 @@ unsigned char at24c02_read_string(unsigned char address, unsigned char *data, un
 {
 	if(length > AT24C02_BYTE_SIZE)
 		return 0x01;
-
-	*data = TWI_NACK;
 		
 	if(twi_start() != 0x00)
 		return 0xFF;
@@ -142,6 +144,11 @@ unsigned char at24c02_read_string(unsigned char address, unsigned char *data, un
 		
 	for(unsigned char i=0; i < length; i++)
 	{
+		if(i >= (length - 1))
+			*data = TWI_NACK;
+		else
+			*data = TWI_ACK;
+		
 		if(twi_get(data) != 0x00)
 			return 0xFF;
 		

@@ -24,6 +24,10 @@
 // !!! #define LINUX                         !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+#ifndef F_CPU
+	#define F_CPU 12000000UL
+#endif
+
 #ifndef F_TWI
 	#define F_TWI 400000UL
 #endif
@@ -40,12 +44,14 @@
 	#define AT24C02_PAGE_SIZE 16
 #endif
 
+#include <util/delay.h>
+
 #ifdef ATMEL
 	#include "../../STK500/twi/twi.h"
 #endif
 
          void at24c02_init(void);
-unsigned char at24c02_write_byte(unsigned char address, unsigned char data, unsigned char verify);
+unsigned char at24c02_write_byte(unsigned char address, const unsigned char data, unsigned char verify);
 unsigned char at24c02_write_page(unsigned char address, unsigned char *page, unsigned char length, unsigned char verify);
 unsigned char at24c02_write_string(unsigned char address, unsigned char *data, unsigned char length, unsigned char verify);
 unsigned char at24c02_read_byte(unsigned char address, unsigned char *data);
