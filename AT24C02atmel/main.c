@@ -17,7 +17,7 @@
 
 #define ATMEL
 //#define WRITE
-#define ADDRESS 0x0F
+#define ADDRESS 0x20
 
 #include <util/delay.h>
 
@@ -32,8 +32,10 @@ int main(void)
 	
 	#ifdef WRITE
 		
-		unsigned char data[] = { 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80, 0x90, 0xA0 };
-		PORTC = at24c02_write_string(ADDRESS, data, sizeof(data), 0);
+		unsigned char data[] = { 0x10, 0x20, 0x30, 0x40, 0x50, 0x60, 0x70, 0x80, 0x90, 0xA0, 0xB0, 0xC0, 0xD0, 0xE0, 0xF0 };
+		PORTC = at24c02_write_string(ADDRESS, data, sizeof(data), 1);
+		//PORTC = at24c02_write_page(ADDRESS, data, sizeof(data), 1);
+		//PORTC = at24c02_write_byte(ADDRESS, 0x0A, 1);
 	
 		while (1)
 		{
@@ -42,12 +44,12 @@ int main(void)
 	#else
 	
 		unsigned char data[10];
-		at24c02_read_string(ADDRESS, data, sizeof(data));
 	
 		while (1)
 		{
 			for(unsigned char i=0; i < sizeof(data); i++)
 			{
+				at24c02_read_string(ADDRESS, data, sizeof(data));
 				PORTC = (data[i]);
 				_delay_ms(1000);
 			}

@@ -24,23 +24,23 @@
 // !!! #define LINUX                         !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-#ifndef F_CPU
+#ifndef F_CPU				// System clock
 	#define F_CPU 12000000UL
 #endif
 
-#ifndef F_TWI
+#ifndef F_TWI				// TWI clock
 	#define F_TWI 400000UL
 #endif
 
-#ifndef AT24C02_ADDRESS
+#ifndef AT24C02_ADDRESS		// TWI EEPROM address
 	#define AT24C02_ADDRESS 0b01010000
 #endif
 
-#ifndef AT24C02_BYTE_SIZE
+#ifndef AT24C02_BYTE_SIZE	// Size of EEPROM memory
 	#define AT24C02_BYTE_SIZE 128
 #endif
 
-#ifndef AT24C02_PAGE_SIZE
+#ifndef AT24C02_PAGE_SIZE	// Size of EEPROM page
 	#define AT24C02_PAGE_SIZE 16
 #endif
 
