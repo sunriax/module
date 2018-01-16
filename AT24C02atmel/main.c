@@ -13,15 +13,16 @@
  * -------------------------------------
  */
 
-#define F_CPU 12000000UL
+#define F_CPU 12000000UL	// System clock
+#define ATMEL				// Use ATMEL library
 
-#define ATMEL
-//#define WRITE
+//#define WRITE				// Define to Write Data to EEPROM
 #define ADDRESS 0x20
 
+// Include standard libraries
 #include <util/delay.h>
 
-#include "../../STK500/twi/twi.h"
+// Include EEPROM library
 #include "../AT24C02/at24c02.h"
 
 int main(void)
@@ -53,9 +54,7 @@ int main(void)
 				PORTC = (data[i]);
 				_delay_ms(1000);
 			}
-		}
-	
+		}	// End of loop
 	#endif
-
-}
+}	// End of main
 

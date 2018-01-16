@@ -2,7 +2,5 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-..\..\STK500\twi\twi.c
-
 at24c02.c
 
